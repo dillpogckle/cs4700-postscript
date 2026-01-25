@@ -1,5 +1,18 @@
 /remove {
-
+    1 dict begin
+    /target exch def
+    count
+    {
+        dup target eq
+        {
+            pop
+        }
+        {
+            count 1 roll        
+        }
+        ifelse
+    }
+    repeat
 } def
 
 % Below here is code to test remove

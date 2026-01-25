@@ -1,15 +1,14 @@
 /reverseTopK {
     1 dict begin
     /n exch def
-    count n eq
+    count n ge
     {
-        n -1 2
-        {
-            -1 roll
-        }
+        2 1 n
+        { -1 roll }
         for
     }
     if
+    end
 } def
 
 % Below here is the test code

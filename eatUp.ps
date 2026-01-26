@@ -1,5 +1,14 @@
-/eatUp { 
-
+/eatUp {
+    count 2 ge
+    {
+        2 copy gt
+        {
+            pop
+            eatUp
+        }
+        if
+    }
+    if
 } def
 
 % Below here is the test code

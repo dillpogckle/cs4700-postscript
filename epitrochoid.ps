@@ -1,5 +1,40 @@
 /epitrochoid {
+    4 dict begin
+    /r exch def
+    /d exch def
+    /b exch def
+    /a exch def
 
+    /iterations r 360 mul def
+
+    1 1 iterations {
+        /t exch def
+
+        % (a + b) * cos(t)
+        a b add t cos mul
+
+        % d * cos( ((a+b) * t)/b )
+        d a b add t mul b div cos mul
+
+        % x = first - second
+        sub /x exch def
+
+        % (a + b) * sin(t)
+        a b add t sin mul
+
+        % d * sin( ((a+b) * t)/b )
+        d a b add t mul b div sin mul
+
+        % y = first - second
+        sub /y exch def
+        t 1 eq {
+            x y moveto
+        } {
+            x y lineto
+        } ifelse
+    } for
+
+    end
 } def
 
 % Below is test code to run epitrochoid
@@ -11,25 +46,27 @@ setfont                      % Now load the font as the current font
 200 750 translate
 
 0 0 moveto
-(50 5 10 1 epitrochoid) show
+(5 50 25 50 epitrochoid) show
 0 -100 translate
 0 0 moveto
-50 5 10 1 epitrochoid 
+5 50 25 50 epitrochoid
 stroke
 0 -100 translate
 0 -20 translate
 
 0 0 moveto
-(50 10 5 1 epitrochoid) show
+(30 2 60 20 epitrochoid) show
 0 -100 translate
-50 10 5 1 epitrochoid
+0 0 moveto
+30 2 60 20 epitrochoid
 stroke
 0 -120 translate
 
 0 0 moveto
-(29 7 43 5 epitrochoid) show
+(40 1 50 10 epitrochoid) show
 0 -100 translate
-29 7 43 5 epitrochoid
+0 0 moveto
+40 1 50 10 epitrochoid
 stroke
 0 -120 translate
 showpage

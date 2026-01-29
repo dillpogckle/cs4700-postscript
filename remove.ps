@@ -1,18 +1,16 @@
 /remove {
     1 dict begin
     /target exch def
-    count
-    {
-        dup target eq
-        {
+    % Iterate over the stack items
+    count {
+        % If the top of stack is the target, remove it
+        dup target eq {
             pop
         }
         {
             count 1 roll        
-        }
-        ifelse
-    }
-    repeat
+        } ifelse
+    } repeat
     end
 } def
 

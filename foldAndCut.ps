@@ -23,54 +23,46 @@
 /foldAndCut {
     % Stack: n
     dup 0 eq {
-        % --- Base Case: n = 0 ---
+        % Base case
         pop         % Clean stack (remove n)
         shape   % Draw the actual shape
     } {
-        % --- Recursive Step: n > 0 ---
-        1 sub       % Decrement n for the next level (stack: n-1)
+        % Decrement n
+        1 sub
         
         gsave
-            % 1. Scale down: Each fold makes the square 1/4 size (1/2 width, 1/2 height)
+            % Scale down to fit four copies
             0.5 0.5 scale
-            
-            % We simulate the fold by moving the origin to the center 
-            % of the new 2x2 grid (Side, Side) relative to the scaled system.
-            
-            % --- Quadrant 1: Upper Right ---
-            % "The upper right square will be the square that we cut"
+
+            % Upper left
             gsave
                 100 100 translate
-                dup foldAndCut  % Recurse with n-1
+                dup foldAndCut % send n-1 onto recursive call
             grestore
             
-            % --- Quadrant 2: Upper Left ---
-            % "Mirror image (in the X-axis) of the upper right"
+            % Upper right
             gsave
                 100 100 translate
-                -1 1 scale      % Mirror X
-                dup foldAndCut  % Recurse with n-1
+                -1 1 scale
+                dup foldAndCut % send n-1 onto recursive call
             grestore
-            
-            % --- Quadrant 3: Lower Left ---
-            % "Mirror image (in the Y-axis) of the upper left"
-            % (Which is logically a 180 rotation of Upper Right)
+
+            % Lower left
             gsave
                 100 100 translate
-                -1 -1 scale     % Mirror X and Mirror Y
-                dup foldAndCut  % Recurse with n-1
+                -1 -1 scale
+                dup foldAndCut % send n-1 onto recursive call
             grestore
-            
-            % --- Quadrant 4: Lower Right ---
-            % "Mirror image (in the Y-axis) of the upper right"
+
+            % Lower right
             gsave
                 100 100 translate
-                1 -1 scale      % Mirror Y
-                dup foldAndCut  % Recurse with n-1
+                1 -1 scale
+                dup foldAndCut % send n-1 onto recursive call
             grestore
             
         grestore
-        pop % Remove n-1 from stack
+        pop
     } ifelse
 } def
 

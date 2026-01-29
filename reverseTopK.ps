@@ -1,13 +1,14 @@
 /reverseTopK {
     1 dict begin
     /n exch def
-    count n ge
-    {
+
+    % Check if n is greater than r equal to 1
+    count n ge {
+        % Reverse the top n elements
         2 1 n
         { -1 roll }
         for
-    }
-    if
+    } if
     end
 } def
 
@@ -33,8 +34,7 @@ setfont                      % Now load the font as the current font
      cvs                   % Convert the top value of the stack to the string
      show
      ( ) show
-   } 
-   if
+   } if
  end
 } def   
 

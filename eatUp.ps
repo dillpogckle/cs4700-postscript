@@ -1,14 +1,12 @@
 /eatUp {
-    count 2 ge
-    {
-        2 copy gt
-        {
+    % Check if there are at least two items on the stack
+    count 2 ge {
+        % Get the top two items and eat the top one if it's greater than the second
+        2 copy gt {
             pop
             eatUp
-        }
-        if
-    }
-    if
+        } if
+    } if
 } def
 
 % Below here is the test code

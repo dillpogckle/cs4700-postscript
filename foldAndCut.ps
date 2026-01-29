@@ -1,6 +1,66 @@
-/foldAndCut {
-
+% The shape operator draws a shape assuming that the shape is drawn in a
+% 100 x 100 square.
+/shape {
+  1 dict begin
+    gsave
+      newpath
+        100 0 moveto
+        20 20 lineto
+        25 30 lineto
+        20 40 lineto
+        25 50 lineto
+        20 60 lineto
+        0  100 lineto
+        0 0 lineto
+        80 0 lineto
+      closepath
+      fill
+      stroke
+    grestore
+  end
 } def
+
+/foldAndCut {
+    dup 0 eq {
+        % Base Case: draw the shape
+        pop shape
+    } {
+        % Recursive Step: n > 0
+        1 sub % decrement n
+
+        % --- Upper Right ---
+        gsave
+            50 50 translate   % Move to UR quadrant center
+            0.5 0.5 scale     % Scale down to half size
+            dup foldAndCut
+        grestore
+
+        % --- Upper Left (Mirror X from UR) ---
+        gsave
+            -50 50 translate  % Move to UL quadrant center
+            0.5 0.5 scale
+            -1 1 scale        % Mirror horizontally
+            dup foldAndCut
+        grestore
+
+        % --- Lower Right (Mirror Y from UR) ---
+        gsave
+            50 -50 translate  % Move to LR quadrant center
+            0.5 0.5 scale
+            1 -1 scale        % Mirror vertically
+            dup foldAndCut
+        grestore
+
+        % --- Lower Left (180 rotation from UR) ---
+        gsave
+            -50 -50 translate % Move to LL quadrant center
+            0.5 0.5 scale
+            -1 -1 scale       % Rotate 180 degrees
+            foldAndCut        % Last call doesn't need dup
+        grestore
+    } ifelse
+} def
+
 
 % Below here is the test code
 
@@ -53,27 +113,5 @@ count print-top
 0 0 moveto
 count print-top
 ( things left on the stack.) show
-
-% The shape operator draws a shape assuming that the shape is drawn in a
-% 100 x 100 square. 
-/shape {
-  1 dict begin
-    gsave
-      newpath
-        100 0 moveto
-        20 20 lineto
-        25 30 lineto
-        20 40 lineto
-        25 50 lineto
-        20 60 lineto
-        0  100 lineto
-        0 0 lineto
-        80 0 lineto
-      closepath
-      fill
-      stroke
-    grestore
-  end
-} def
 
 
